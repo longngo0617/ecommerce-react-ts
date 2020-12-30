@@ -1,0 +1,50 @@
+.card {
+  border-radius: 12px;
+  border: 1px solid #d1d1d1;
+  padding: 16px;
+  margin-bottom: 48px;
+  &--head {
+    margin-bottom: 16px;
+  }
+  &--title {
+    font-size: 15px;
+    line-height: 22px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  &--desc {
+    font-size: 12px;
+    line-height: 16px;
+    color: #575757;
+    margin-bottom: 16px;
+  }
+  &--footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &--price {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 27px;
+  }
+  &--percent {
+      position:absolute;
+      content:'';
+      border-radius: 12px;
+      background-color: #f4f8ec;
+      top:34px;
+      left:40px;
+      width: 54px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      span {
+        font-size: 12px;
+        font-weight: 600;
+        color:#6A983C;
+      }
+
+  }
+}

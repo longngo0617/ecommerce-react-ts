@@ -1,0 +1,204 @@
+.product {
+  &--image {
+    img {
+      margin-bottom: 32px;
+    }
+  }
+  &--details {
+    .title {
+      font-weight: 600;
+      font-size: 32px;
+      color: #151515;
+      line-height: 45px;
+      margin-bottom: 10px;
+    }
+    .star--group span {
+      font-size: 12px;
+      line-height: 16px;
+      color: #a9a9a9;
+    }
+    .desc {
+      margin: 40px 0;
+      font-size: 17px;
+      line-height: 23px;
+      color: #151515;
+    }
+  }
+  &--wrap {
+    &__info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .content {
+        display: flex;
+        .name-wrap {
+          display: flex;
+          flex-direction: column;
+          margin-right: 40px;
+          .name {
+            margin-bottom: 12px;
+            font-size: 14px;
+            line-height: 19px;
+            color: #a9a9a9;
+          }
+        }
+        .info {
+          display: flex;
+          flex-direction: column;
+          span {
+            margin-bottom: 12px;
+            font-size: 14px;
+            line-height: 19px;
+          }
+        }
+        .green {
+          color: #6a983c;
+        }
+      }
+    }
+    &__btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 40px;
+      .price--group {
+        display: flex;
+        flex-direction: column;
+        .price {
+          font-size: 26px;
+          line-height: 39px;
+          font-weight: 600;
+          color: #6a983c;
+        }
+        .discount {
+          font-weight: 600;
+          font-size: 12px;
+          line-height: 18px;
+          text-decoration: line-through;
+          color: #a9a9a9;
+        }
+      }
+      .btn--group {
+        display: flex;
+        align-items: center;
+        .quantity {
+          display: flex;
+          font-size: 14px;
+          line-height: 19px;
+          border: 1px solid #d1d1d1;
+          border-radius: 12px;
+          box-sizing: border-box;
+          span {
+            padding: 14px 16px;
+            cursor: pointer;
+          }
+        }
+        .btn-buy {
+          width: 140px;
+          margin-left: 24px;
+        }
+      }
+    }
+  }
+  .wish--list {
+    margin-top: 24px;
+    span {
+      font-weight: bold;
+      font-size: 15px;
+      line-height: 22px;
+      color: #151515;
+      margin-left: 6px;
+    }
+  }
+  .tab {
+    margin-top: 62px;
+    &--title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #d1d1d1;
+      li {
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 27px;
+        padding-bottom: 16px;
+        position: relative;
+        &.active {
+          &::after {
+            position: absolute;
+            content: "";
+            width: 120%;
+            height: 1px;
+            background-color: #6a983c;
+            bottom: -1px;
+            left: 0;
+          }
+        }
+      }
+    }
+    &--content {
+      margin-top: 48px;
+      .description {
+        &--top {
+          .item {
+            margin-bottom: 32px;
+            .title {
+              font-weight: 600;
+              font-size: 15px;
+              line-height: 22px;
+              color: #151515;
+              margin-bottom: 8px;
+            }
+            .content {
+              font-weight: normal;
+              font-size: 14px;
+              line-height: 19px;
+              color: #151515;
+            }
+            .table {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              &--col {
+                h4 {
+                  font-weight: 600;
+                  font-size: 12px;
+                  line-height: 18px;
+                  color: #151515;
+                  margin-bottom: 10px;
+                }
+                ul {
+                  li {
+                    font-size: 14px;
+                    line-height: 19px;
+                    color: #575757;
+                    margin-bottom: 10px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .related {
+    margin-top: 70px;
+    &--top {
+      display:flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 37px;
+      .title {
+        font-size: 18px;
+        line-height: 27px;
+        font-weight: 600;
+        color: #151515;
+        cursor: pointer;
+        img {
+          margin-left: 6px;
+        }
+      }
+    }
+  }
+}

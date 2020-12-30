@@ -1,0 +1,115 @@
+.header {
+  &--top {
+    height: 48px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #d1d1d1;
+    .contact {
+      flex: 0.4;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      li {
+        font-size: 12px;
+        &:first-child {
+          color: #6a983c;
+        }
+      }
+    }
+    .about {
+      flex: 0.2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      li {
+        font-size: 12px;
+        color: #6a983c;
+      }
+    }
+  }
+  &--mid {
+    height: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .search {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      width: 500px;
+      height: 42px;
+      border-radius: 12px;
+      border: 1px solid #d1d1d1;
+      &-category {
+        .head {
+            display:flex;
+            align-items: center;
+          .title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-style:normal;
+            font-size: 15px;
+            position: relative;
+            margin-right: 10px;
+          }
+        }
+      }
+      &-input {
+          border:0;
+          outline:0;
+          max-width: 270px;
+          width: 230px;
+          padding:0 25px;
+          border-left:1px solid #d1d1d1;
+      }
+    }
+    .info {
+        display:flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 88px;
+      .cart {
+          position: relative;
+          cursor: pointer;
+          &::after{
+              position:absolute;
+              content:attr(data-item);
+              font-size: 12px;
+              color:#fff;
+              font-weight: 600;
+              display:flex;
+              align-items: center;
+              justify-content: center;
+              background:#E5704B;
+              width: 16px;
+              height: 16px;
+              top:60%;
+              left: -20%;
+              border-radius: 50%;
+          }
+      }
+    }
+  }
+  &--bottom {
+      width: 100%;
+      .wrap {
+          display:flex;
+          align-items: center;
+          justify-content: space-around;
+          background-color: #f9f9f9;
+          height: 55px;
+          li{
+              display:flex;
+              align-items: center;
+            .title {
+                font-size: 15px;
+                font-weight: 500;
+                line-height: 22px;
+                margin-right: 10px;
+            }
+          }         
+      }
+  }
+}
