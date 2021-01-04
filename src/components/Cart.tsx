@@ -1,5 +1,4 @@
 import ReactDOM from "react-dom";
-import {useState} from 'react';
 import CartItem from "./CartItem";
 const portalCart = document.getElementById("popup-cart");
 function Open()

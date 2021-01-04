@@ -7,7 +7,12 @@ import Related from './components/Related'
 export default function Details() {
     return (
         <>
-            <Breadcrumbs/>
+            <Breadcrumbs links = {[
+                {title: "Homepage", link : "/"},
+                {title: "Category", link : "/category"},
+                {title: "Carrots"},
+            ]}
+            />
             <section className="product">
                 <div className="container">
                     <ProductDetails/>

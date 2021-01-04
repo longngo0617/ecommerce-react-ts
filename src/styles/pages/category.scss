@@ -172,7 +172,7 @@
         }
       }
       input[type="range"] {
-        position: absolute;
+        // position: absolute;
         z-index: 2;
         height: 10px;
         width: 100%;
@@ -190,6 +190,7 @@
         margin: 16px 0 30px;
         display: flex;
         align-items: center;
+        justify-content: center;
         &--input {
           h3 {
             font-size: 12px;

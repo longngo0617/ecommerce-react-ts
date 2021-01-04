@@ -1,41 +1,26 @@
-import { useEffect } from "react";
+import { Slider, makeStyles } from "@material-ui/core";
+import React from "react";
+
+const useStyles = makeStyles({
+  root: {
+    color: "#6a983c",
+  },
+});
 const FilterPrice = () => {
-  useEffect(() => {
-    let inputLeft = document.getElementById("input-left");
-    let inputRight = document.getElementById("input-right");
-    let thumbLeft = document.querySelector(".slider > .thumb.left");
-    let thumbRight = document.querySelector(".slider > .thumb.right");
-    let range = document.querySelector(".slider > .range");
-    function setLeftValue(){
-        let _this = inputLeft;
-            // min  = parseInt(_this.min ) ,
-            // max  = parseInt(_this.max);
-    }
-  }, []);
+  const classes = useStyles();
+  const [value, setValue] = React.useState<number[]>([20, 37]);
+  const handleChange = (event: any, newValue: number | number[]) => {
+    setValue(newValue as number[]);
+  };
   return (
     <>
-      <div className="multi--range">
-        <input
-          type="range"
-          id="input-left"
-          min="0"
-          max="100"
-          defaultValue="25"
-        />
-        <input
-          type="range"
-          id="input-right"
-          min="0"
-          max="100"
-          defaultValue="75"
-        />
-      </div>
-      <div className="slider">
-        <div className="track"></div>
-        <div className="range"></div>
-        <div className="thumb left"></div>
-        <div className="thumb right"></div>
-      </div>
+      <Slider
+        className={classes.root}
+        value={value}
+        onChange={handleChange}
+        valueLabelDisplay="auto"
+        aria-labelledby="range-slider"
+      />
       <div className="price">
         <div className="price--input">
           <h3>Min</h3>

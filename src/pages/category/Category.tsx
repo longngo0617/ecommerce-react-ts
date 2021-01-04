@@ -10,7 +10,10 @@ export default function Category() {
   console.log(url);
   return (
     <>
-      <Breadcrumbs />
+      <Breadcrumbs links={[
+        {title : "Homepage", link: "/"},
+        {title : "Category"},
+      ]} />
       <section className="category">
         <div className="container">
           <div className="heading">
