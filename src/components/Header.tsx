@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { Link } from "react-router-dom";
 
 export default function Header({setCartState} : any) {
   return (
@@ -18,9 +18,9 @@ export default function Header({setCartState} : any) {
             </ul>
           </div>
           <div className="header--mid">
-            <div className="logo">
+            <Link className="logo" to="/">
               <img src="/assets/logo.svg" alt="logo" />
-            </div>
+            </Link>
             <div className="search">
               <div className="search-category">
                 <div className="head">
@@ -40,9 +40,9 @@ export default function Header({setCartState} : any) {
               </div>
             </div>
             <div className="info">
-              <div className="user">
+              <Link className="user" to="/login">
                 <img src="/assets/icon-user.svg" alt="user" />
-              </div>
+              </Link>
               <div className="cart" data-item="4" onClick={()=> setCartState(true)} >
                 <img src="/assets/icon-cart.svg" alt="cart" />
               </div>
