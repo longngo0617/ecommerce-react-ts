@@ -20,5 +20,11 @@ export default {
             return true;
         }
         return false;
+    },
+    remove: (name: string) => {
+        localStorage.removeItem(name)
+    },
+    clear: () => {
+        localStorage.clear();
     }
 }

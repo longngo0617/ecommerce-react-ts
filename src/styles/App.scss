@@ -37,6 +37,8 @@ img {
   justify-content: center;
   &--more {
     background: #f5f5f5;
+    text-decoration: none;
+    color:#000;
   }
   &--recipes {
     border: 2px solid #6a983c;
@@ -46,6 +48,7 @@ img {
     border: 2px solid #46760a;
     background-color: #6a983c;
     width: 90px;
+    text-decoration: none;
     cursor: pointer;
     span {
       color: #fff;
@@ -74,7 +77,16 @@ img {
   padding: 6px 16px;
   display: flex;
   align-items: center;
-  cursor: pointer;
+  label {
+    cursor: pointer;
+  }
+  i {
+    width: 88px;
+    height: 22px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    margin-left: 6px;
+  }
   input[type="radio"] {
     display: none;
     &:checked {
@@ -166,14 +178,77 @@ img {
   position: fixed;
   top: 0;
   right: 0;
-  width: 400px;
+  width: 0px;
   z-index: 2;
   background: #fff;
   height: 100vh;
-  transform: translateX(100%);
-  transition: transform 0.5s ease-in;
+  overflow: hidden;
+  will-change: transform;
+  transition: width 0.6s cubic-bezier(0.65, 0.005, 0.35, 0.995);
   &.is-open {
-    transform: translateX(0);
-    transition: transform 0.5s ease-in;
+    width: 400px;
+    transition: width 0.65s cubic-bezier(0.4, 0, 0.1, 1);
+  }
+}
+.a-checkbox {
+  position: relative;
+  label {
+    cursor: pointer;
+    position: relative;
+    top: -4px;
+  }
+  &.a-checkbox-fancy {
+    input {
+      width: 24px;
+      height: 24px;
+      &:checked + .a-icon-checkbox {
+        background-position: top;
+      }
+    }
+  }
+}
+.a-checkbox-fancy {
+  input {
+    border: 0 none;
+    outline: 0 none;
+    overflow: hidden;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    opacity: 0.02;
+    bottom: auto;
+  }
+  .a-icon-checkbox {
+    width: 24px;
+    height: 24px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    vertical-align: top;
+    background-position: bottom;
+  }
+}
+.aok-float-left {
+  float: left !important;
+}
+.a-checkbox-label {
+  position: relative;
+  padding-left: 5px;
+  text-indent: 0;
+  display: inline-block;
+  vertical-align: top;
+}
+.MuiPaginationItem-page.Mui-selected {
+  background-color: #6a983c !important;
+  color: #fff !important;
+}
+.flickity-button-icon {
+  width: 15px;
+}
+.carousel.flickity-enabled.is-draggable {
+  &:focus {
+    outline: none;
   }
 }

@@ -7,7 +7,7 @@ export default function Headline() {
       <section className="section">
         <div className="container">
           <div className="row">
-            <div className="col-md-3">
+            {/* <div className="col-md-3">
               <Card giakm={false} />
             </div>
             <div className="col-md-3">
@@ -18,7 +18,7 @@ export default function Headline() {
             </div>
             <div className="col-md-3">
               <Card giakm={false} />
-            </div>
+            </div> */}
           </div>
         </div>
       </section>

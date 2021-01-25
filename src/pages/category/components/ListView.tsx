@@ -1,14 +1,14 @@
-import React from 'react'
-import CardList from '../../../components/CardList'
+import React from "react";
+import CardList from "../../../components/CardList";
+import withProduct from "../../../hoc/withProduct";
+import { productItem } from "../../../type";
 
-export default function ListView() {
-    return (
-        <>
-            <CardList image={"/assets/Image-light.jpg"}/>
-            <CardList image={"/assets/Image-light2.jpg"}/>
-            <CardList image={"/assets/Image-light3.jpg"}/>
-            <CardList image={"/assets/Image-light4.jpg"}/>
-            <CardList image={"/assets/Image-light5.jpg"}/>
-        </>
-    )
+export default function ListView({ props }: any) {
+  return (
+    <>
+      {props?.map((e: productItem) => (
+        <React.Fragment key={e.id}>{withProduct(CardList, e)}</React.Fragment>
+      ))}
+    </>
+  );
 }

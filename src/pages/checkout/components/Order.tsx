@@ -1,6 +1,28 @@
-import React from "react";
+import { connect, ConnectedProps } from "react-redux";
+import CartItem from "../../../components/CartItem";
+import FormatNumber from "../../../helper/FormatNumber";
 
-export default function Order() {
+const getCartTotal = (cartList: any) =>
+  cartList.reduce(
+    (amount: number, item: any) => amount + item.real_price * item.qty,
+    0
+  );
+let date = new Date();
+date.setDate(date.getDate() + 7);
+
+const mapStateToProps = (state: AppState) => ({
+  cartList: state.cart.list,
+  cartShippingFee: state.cart.shippingFee,
+  vat: state.cart.vat,
+});
+
+const mapDispatchToProps = {
+  
+};
+const connector = connect(mapStateToProps, mapDispatchToProps);
+interface Props extends ConnectedProps<typeof connector> {}
+const Order = (props: Props) =>  {
+  const { cartList,cartShippingFee,vat } = props;
   return (
     <div className="order">
       <div className="order--inner">
@@ -14,104 +36,35 @@ export default function Order() {
           </div>
           <div className="cart">
             <div className="cart--body">
-              <div className="cart--item">
-                <div className="image">
-                  <img src="/assets/product-1.jpg" alt="" />
-                </div>
-                <div className="wishlist">
-                  <img src="/assets/icon-heart-organe.svg" alt="" />
-                  <span>Wishlist</span>
-                </div>
-                <div className="close">
-                  <img src="/assets/icon-close.svg" alt="" />
-                  <span>remove</span>
-                </div>
-                <div className="name">product title</div>
-                <div className="details">
-                  <div className="details--row">
-                    <span className="title">Farm:</span>
-                    <span className="desc">Tharamis Farm</span>
-                  </div>
-                  <div className="details--row">
-                    <span className="title">Freshness:</span>
-                    <span className="desc">1 day old</span>
-                  </div>
-                </div>
-                <div className="group-star">
-                  <img src="/assets/icon-star.svg" alt="" />
-                  <img src="/assets/icon-star.svg" alt="" />
-                  <img src="/assets/icon-star.svg" alt="" />
-                  <img src="/assets/icon-star.svg" alt="" />
-                  <img src="/assets/icon-star-none.svg" alt="" />
-                </div>
-                <div className="bottom">
-                  <div className="price">
-                    36.99 USD
-                    <span>48.56 USD</span>
-                  </div>
-                  <div className="quantity">
-                    <span className="btn--increase">+</span>
-                    <span>0</span>
-                    <span className="btn--decrease">-</span>
-                  </div>
-                </div>
-              </div>
-              <div className="cart--item">
-                <div className="image">
-                  <img src="/assets/product-1.jpg" alt="" />
-                </div>
-                <div className="wishlist">
-                  <img src="/assets/icon-heart-organe.svg" alt="" />
-                  <span>Wishlist</span>
-                </div>
-                <div className="close">
-                  <img src="/assets/icon-close.svg" alt="" />
-                  <span>remove</span>
-                </div>
-                <div className="name">product title</div>
-                <div className="details">
-                  <div className="details--row">
-                    <span className="title">Farm:</span>
-                    <span className="desc">Tharamis Farm</span>
-                  </div>
-                  <div className="details--row">
-                    <span className="title">Freshness:</span>
-                    <span className="desc">1 day old</span>
-                  </div>
-                </div>
-                <div className="group-star">
-                  <img src="/assets/icon-star.svg" alt="" />
-                  <img src="/assets/icon-star.svg" alt="" />
-                  <img src="/assets/icon-star.svg" alt="" />
-                  <img src="/assets/icon-star.svg" alt="" />
-                  <img src="/assets/icon-star-none.svg" alt="" />
-                </div>
-                <div className="bottom">
-                  <div className="price">
-                    36.99 USD
-                    <span>48.56 USD</span>
-                  </div>
-                  <div className="quantity">
-                    <span className="btn--increase">-</span>
-                    <span>0</span>
-                    <span className="btn--decrease">+</span>
-                  </div>
-                </div>
-              </div>
+            {cartList.map((e: any) => (
+                <CartItem {...e} key={e.id} />
+              ))}
+              {cartList.length === 0 && (
+                <p
+                  style={{
+                    textAlign: "center",
+                    marginTop: 80,
+                    lineHeight: "25px",
+                  }}
+                >
+                  Bạn chưa chọn sản phẩm nào, tiếp tục chọn cho mình sản phẩm
+                  ưng ý và quay lại.
+                </p>
+              )}
             </div>
           </div>
           <div className="subtotal">
             <div className="subtotal--row">
               <span>Subtotal</span>
-              <span>73.98 USD</span>
+              <span>{FormatNumber(getCartTotal(cartList))} VNĐ</span>
             </div>
             <div className="subtotal--row">
-              <span>Tax</span>
-              <span>17% 16.53 USD</span>
+              <span>VAT</span>
+              <span>{FormatNumber(vat)} VNĐ</span>
             </div>
             <div className="subtotal--row">
               <span>Shipping</span>
-              <span>0 USD</span>
+              <span>{FormatNumber(cartShippingFee)} VNĐ</span>
             </div>
             <div className="promo">
               <input type="text" name="promo" placeholder="Apply promo code"/>
@@ -121,12 +74,13 @@ export default function Order() {
           <div className="total">
             <div className="total--title">
               <h4>Total Order</h4>
-              <p>Guaranteed delivery day: June 12, 2020</p>
+              <p>Guaranteed delivery day: {date.toDateString()}</p>
             </div>
-            <div className="total--price">89.84 USD</div>
+            <div className="total--price">{FormatNumber(getCartTotal(cartList) + cartShippingFee)} VNĐ</div>
           </div>
         </div>
       </div>
     </div>
   );
 }
+export default connector(Order);

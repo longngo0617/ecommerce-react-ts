@@ -1,21 +1,26 @@
-import React from 'react'
-
-export default function Paginate() {
-    return (
-        <div className="paginate">
-            <div className="paginate--wrap">
-                <h3 className="page">Page :</h3>
-                <ul className="page--wrap">
-                    <li><a href="#" className="page-numbers">1</a></li>
-                    <li><a href="#" className="page-numbers">2</a></li>
-                    <li><a href="#" className="page-numbers current">3</a></li>
-                    <li><a href="#" className="page-numbers">4</a></li>
-                </ul>
-            </div>
-            <div className="total">
-                <span className="number">336</span>
-                Products
-            </div>
-        </div>
-    )
+import { Pagination, PaginationItem } from "@material-ui/lab";
+import { Link, useRouteMatch } from "react-router-dom";
+import { addQuery } from "../helper/url";
+ 
+export default function Paginate({ props }: any) {
+  const {url} = useRouteMatch()
+  return (
+    <div className="paginate">
+      <div className="paginate--wrap">
+        <ul className="page--wrap">
+          <Pagination
+            page={props.currentPage}
+            count={props.totalPage}
+            renderItem={(item) => (
+              <PaginationItem
+                component={Link}
+                to={`${url}?${addQuery({ page: item.page })}`}
+                {...item}
+              />
+            )}
+          />
+        </ul>
+      </div>
+    </div>
+  );
 }

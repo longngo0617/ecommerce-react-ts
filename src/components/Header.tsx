@@ -1,6 +1,41 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
+import Api from "../helper/Api";
+import { logout } from "../pages/login/Login.actions";
+import { openCart } from "./cart/Cart.actions";
 
-export default function Header({setCartState} : any) {
+function takeLessCategory(ele: any, num: number) {
+  let content = [];
+  for (let i = 0; i < num; i++) {
+    content.push(
+      <li key={i}>
+        <span className="title">{ele[i].title}</span>
+        <span>
+          <img src="/assets/icon-down.svg" alt="" />
+        </span>
+      </li>
+    );
+  }
+  return content;
+}
+function _logout(dispatch: any, history: any) {
+  dispatch(logout());
+  history.push("/login");
+}
+export default function Header() {
+  const [categories, setCategories] = useState<any | null>();
+  useEffect(() => {
+    Api("categories")
+      .get()
+      .then((res) => {
+        setCategories(res);
+      });
+  }, []);
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const total = useSelector((state: AppState) => state.cart.list);
+  const login = useSelector((state: AppState) => state.login);
   return (
     <>
       <div className="header">
@@ -18,7 +53,7 @@ export default function Header({setCartState} : any) {
             </ul>
           </div>
           <div className="header--mid">
-            <Link className="logo" to="/">
+            <Link className="logo" to="/category">
               <img src="/assets/logo.svg" alt="logo" />
             </Link>
             <div className="search">
@@ -40,64 +75,41 @@ export default function Header({setCartState} : any) {
               </div>
             </div>
             <div className="info">
-              <Link className="user" to="/login">
-                <img src="/assets/icon-user.svg" alt="user" />
-              </Link>
-              <div className="cart" data-item="4" onClick={()=> setCartState(true)} >
+              {login?.userInfo ? (
+                <div className="stardust-popover">
+                  <div className="stardust-popover__target" role="button">
+                    <div className="account">
+                      <div className="avatar"></div>
+                      <div className="username">{login.userInfo.name}</div>
+                    </div>
+                  </div>
+                  <div className="stardust-popover__popover stardust-popover__popover--show">
+                    <div className="stardust-popover__arrow">
+                      <div className="stardust-popover__arrow--inner"></div>
+                    </div>
+                    <div className="account__content">
+                        <Link to="/profile" className="account__button">My account</Link>
+                        <Link to="/profile"className="account__button">Purchase menu</Link>
+                        <div className="account__button" onClick={()=>_logout(dispatch,history)}>Log out</div>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <Link className="user" to="/login">
+                  <img src="/assets/icon-user.svg" alt="user" />
+                </Link>
+              )}
+              <div className="cart" onClick={() => dispatch(openCart())}>
                 <img src="/assets/icon-cart.svg" alt="cart" />
+                {total.length > 0 && (
+                  <span className="total">{total.length}</span>
+                )}
               </div>
             </div>
           </div>
           <div className="header--bottom">
             <ul className="wrap">
-              <li>
-                <span className="title">Bakery</span>
-                <span>
-                  <img src="/assets/icon-down.svg" alt="" />
-                </span>
-              </li>
-              <li>
-                <span className="title">Fruit and vegetables</span>
-                <span>
-                  <img src="/assets/icon-down.svg" alt="" />
-                </span>
-              </li>
-              <li>
-                <span className="title">Meat and fish</span>
-                <span>
-                  <img src="/assets/icon-down.svg" alt="" />
-                </span>
-              </li>
-              <li>
-                <span className="title">Drinks</span>
-                <span>
-                  <img src="/assets/icon-down.svg" alt="" />
-                </span>
-              </li>
-              <li>
-                <span className="title">Kitchen</span>
-                <span>
-                  <img src="/assets/icon-down.svg" alt="" />
-                </span>
-              </li>
-              <li>
-                <span className="title">Special nutrition</span>
-                <span>
-                  <img src="/assets/icon-down.svg" alt="" />
-                </span>
-              </li>
-              <li>
-                <span className="title">Baby</span>
-                <span>
-                  <img src="/assets/icon-down.svg" alt="" />
-                </span>
-              </li>
-              <li>
-                <span className="title">Pharmacy</span>
-                <span>
-                  <img src="/assets/icon-down.svg" alt="" />
-                </span>
-              </li>
+              {!categories ? null : takeLessCategory(categories, 5)}
             </ul>
           </div>
         </div>

@@ -1,1 +1,6 @@
-declare module '*';
+// // declare module '*';
+// declare global {
+//   interface Window {
+//     Flickity: any;
+//   }
+// }

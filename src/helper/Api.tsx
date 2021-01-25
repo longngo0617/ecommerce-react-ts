@@ -19,7 +19,7 @@ if (user) {
 
 let resendApi = true;
 async function refreshToken() {
-  let user = LocalStorage.get("user");
+  let user = LocalStorage.get("token");
   if (resendApi) {
     if (user?.refreshToken) {
       resendApi = false;
@@ -87,6 +87,9 @@ export default (url: string) => {
       return callApi(...params);
     },
     post: (data: any) => {
+      if (typeof data.body === 'object') {
+        data.body = JSON.stringify(data.body)
+      }
       let params: [input: RequestInfo, init?: RequestInit] = [
         domain + url,
         { headers, ...data, method: "POST" },
@@ -109,3 +112,8 @@ export default (url: string) => {
     },
   };
 };
+
+export function addToken(token: any) {
+  headers.Authorization = `Bearer ${token.accessToken}`
+  LocalStorage.set('token', token)
+}

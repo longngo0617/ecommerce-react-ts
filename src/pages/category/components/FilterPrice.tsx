@@ -9,6 +9,8 @@ const useStyles = makeStyles({
 const FilterPrice = () => {
   const classes = useStyles();
   const [value, setValue] = React.useState<number[]>([20, 37]);
+  const [min, setMin] = React.useState<any>('');
+  const [max, setMax] = React.useState<any>('');
   const handleChange = (event: any, newValue: number | number[]) => {
     setValue(newValue as number[]);
   };
@@ -24,12 +26,12 @@ const FilterPrice = () => {
       <div className="price">
         <div className="price--input">
           <h3>Min</h3>
-          <input type="text" name="price-min" id="min" />
+          <input type="text" name="price-min" id="min" value={min} onChange={e => setMin(e.target.value)} />
         </div>
         <div className="line"></div>
         <div className="price--input">
           <h3>Max</h3>
-          <input type="text" name="price-max" id="max" />
+          <input type="text" name="price-max" id="max" value={max} onChange={e => setMax(e.target.value)}/>
         </div>
       </div>
       <div className="button-form">

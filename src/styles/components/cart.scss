@@ -28,7 +28,7 @@
   }
   &--body {
     overflow: auto;
-    height: 370px;
+    height: 380px;
     .cart--item {
       display: grid;
       grid-template-columns: 100px auto;
@@ -112,6 +112,7 @@
           border-radius: 12px;
           font-size: 14px;
           box-sizing: border-box;
+          height:45px;
           span {
             padding: 14px 16px;
             cursor: pointer;
@@ -121,7 +122,6 @@
     }
   }
   &--foot {
-    margin-top: 120px;
     .subtotal {
       font-weight: 600;
       font-size: 12px;

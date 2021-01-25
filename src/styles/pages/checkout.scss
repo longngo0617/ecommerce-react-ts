@@ -23,8 +23,7 @@
       border: 1px solid #d1d1d1;
       box-sizing: border-box;
       border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 32px;
+      margin-bottom: 16px;
     }
     .field--wrap {
       display: flex;
@@ -131,18 +130,27 @@
       }
     }
   }
+  .field--top {
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    padding:7px;
+  }
   .field--bottom {
+    padding: 12px 22px;
     .field--wrap {
       justify-content: flex-start;
     }
   }
 }
 .bg-grey {
-  background: #f9f9f9;
   border: 1px solid #d1d1d1;
   box-sizing: border-box;
   border-radius: 12px;
   padding: 7px;
+}
+.grey {
+  background: #f9f9f9;
 }
 .order {
   .step {
@@ -200,7 +208,7 @@
     }
     &--price {
       font-weight: 600;
-      font-size: 26px;
+      font-size: 22px;
       line-height: 39px;
       color: #6a983c;
     }

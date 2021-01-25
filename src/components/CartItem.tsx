@@ -1,3 +1,6 @@
+import { useDispatch } from "react-redux";
+import { decreaseQtyItem, increaseQtyItem, removeItem } from "./cart/Cart.actions";
+
 type CartItemProps = {
     img : string,
     title:string,
@@ -6,47 +9,44 @@ type CartItemProps = {
     price:number,
     discount:number,
 }
-const CartItem = ({img,title,farm,fresh,price,discount} : CartItemProps) => {
+const CartItem = (props: any) => {
+  const dispatch = useDispatch();
   return (
     <div className="cart--item">
       <div className="image">
-        <img src={img} alt="" />
+        <img src={props.thumbnail_url} alt="" />
       </div>
       <div className="wishlist">
         <img src="/assets/icon-heart-organe.svg" alt="" />
         <span>Wishlist</span>
       </div>
-      <div className="close">
+      <div className="close" onClick={()=>dispatch(removeItem(props.id))}>
         <img src="/assets/icon-close.svg" alt="" />
         <span>remove</span>
       </div>
-      <div className="name">{title}</div>
+      <div className="name">{props.name}</div>
       <div className="details">
         <div className="details--row">
           <span className="title">Farm:</span>
-          <span className="desc">{farm}</span>
+          <span className="desc">Tharamis Farm</span>
         </div>
         <div className="details--row">
-          <span className="title">Freshness:</span>
-          <span className="desc">{fresh}</span>
+          <span className="title">Review:</span>
+          <span className="desc">{props.review_count} customer review</span>
         </div>
       </div>
       <div className="group-star">
-        <img src="/assets/icon-star.svg" alt="" />
-        <img src="/assets/icon-star.svg" alt="" />
-        <img src="/assets/icon-star.svg" alt="" />
-        <img src="/assets/icon-star.svg" alt="" />
-        <img src="/assets/icon-star-none.svg" alt="" />
+        <img src={`/assets/${Math.round(props.rating_average)}star.svg`} alt="" />
       </div>
       <div className="bottom">
         <div className="price">
-          {price} USD
-          <span>{discount} USD</span>
+          {props.real_price_str} VNĐ
+          <span>{props.price_str} VNĐ</span>
         </div>
         <div className="quantity">
-          <span className="btn--increase">+</span>
-          <span>0</span>
-          <span className="btn--decrease">-</span>
+          <span className="btn--increase" onClick={()=>dispatch(decreaseQtyItem(props.id))}>-</span>
+          <span>{props.qty}</span>
+          <span className="btn--decrease" onClick={()=>dispatch(increaseQtyItem(props.id))}>+</span>
         </div>
       </div>
     </div>

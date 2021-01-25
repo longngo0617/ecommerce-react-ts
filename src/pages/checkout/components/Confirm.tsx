@@ -28,9 +28,9 @@ export default function Confirm() {
             </div>
           </div>
         </div>
-        <div className="btn btn-buy">
+        <button type="submit" className="btn btn-buy">
             <span>Complete order</span>
-        </div>
+        </button>
         <div className="security">
             <div className="security--image">
                 <img src="/assets/security.svg" alt=""/>

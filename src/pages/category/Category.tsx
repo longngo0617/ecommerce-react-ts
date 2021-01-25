@@ -1,39 +1,115 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { connect, ConnectedProps } from "react-redux";
+import { Link, useHistory, useLocation, useRouteMatch } from "react-router-dom";
 import Breadcrumbs from "../../components/Breadcrumbs";
-import { Switch, Route, useRouteMatch, NavLink } from "react-router-dom";
-import ListView from "./components/ListView";
-import GridView from "./components/GridView";
-import FilterBar from "./components/FilterBar";
 import Paginate from "../../components/Paginate";
-export default function Category() {
-  let { url } = useRouteMatch();
-  console.log(url);
+import getQueryString, { convertObjToQueryURL } from "../../helper/url";
+import { getQueryParam } from "../../hooks/queryURL";
+import { getCategories } from "./categories/Category.thunk";
+import FilterBar from "./components/FilterBar";
+import FilterItem from "./components/FilterItem";
+import GridView from "./components/GridView";
+import ListView from "./components/ListView";
+import LoadingBox from "./components/LoadingBox";
+import { getProducts } from "./product/Product.thunk";
+
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
+const mapStateToProps = (state: AppState) => ({
+  products: state.products.products,
+  paginate: state.products.paginate,
+  loading: state.products.loading,
+  categories: state.categories.categories,
+});
+
+const mapDispatchToProps = {
+  getProducts,
+  getCategories,
+};
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+interface Props extends ConnectedProps<typeof connector> {}
+const Category = (props: Props) => {
+  const routeMatch: any = useRouteMatch();
+  const history = useHistory();
+  const view = useQuery().get("view") || "grid";
+  const sort = useQuery().get("sort");
+  const params = routeMatch?.params;
+  const {
+    products,
+    paginate,
+    loading,
+    getProducts,
+    categories,
+    getCategories,
+  } = props;
+  let id = params?.id?.replace(/[^0-9]/g, "");
+  let queryURL = getQueryString(params, { remove: { view: 1 } });
+  let viewGrid = getQueryString(params, {
+    data: { view: "grid" },
+    remove: { categories: 1 },
+  });
+  let viewList = getQueryString(params, {
+    data: { view: "list" },
+    remove: { categories: 1 },
+  });
+
+  function sortPrice(options: Object) {
+    let query = getQueryParam();
+    delete query.page;
+
+    query.sort = JSON.stringify(options)
+      .replace(/[{}"]/g, "")
+      .replace(/:/g, ".");
+
+    history.push({
+      search: "?" + convertObjToQueryURL(query),
+    });
+  }
+  useEffect(() => {
+    getProducts(queryURL);
+    getCategories();
+  }, [queryURL]);
+
+  if (loading) return <LoadingBox />;
   return (
     <>
-      <Breadcrumbs links={[
-        {title : "Homepage", link: "/"},
-        {title : "Category"},
-      ]} />
+      <Breadcrumbs
+        links={[{ title: "Homepage", link: "/" }, { title: "Category" }]}
+      />
       <section className="category">
         <div className="container">
           <div className="heading">
-            <h2 className="heading--title">Fruit and vegetables</h2>
+            <h2 className="heading--title">
+              {!id
+                ? "Danh sách sản phẩm"
+                : categories.find((e: any) => e.id === parseInt(id))?.title}
+            </h2>
             <div className="heading--group">
-              <NavLink to={`${url}/grid-view`} className="heading--item">
+              <span className="label">Thể hiện: </span>
+              <Link
+                to={`${routeMatch.url}?${viewGrid}`}
+                className={`heading--item ${view === "grid" ? "active" : ""}`}
+              >
                 <span>
                   <img src="/assets/icon-square.svg" alt="" />
                 </span>
-                <span className="type">Grid view</span>
-              </NavLink>
-              <NavLink exact to={`${url}`} className="heading--item">
+                <span className="type">Lưới</span>
+              </Link>
+              <Link
+                to={`${routeMatch.url}?${viewList}`}
+                className={`heading--item ${view === "list" ? "active" : ""}`}
+              >
                 <span>
                   <img src="/assets/icon-section.svg" alt="" />
                 </span>
-                <span className="type">List view</span>
-              </NavLink>
+                <span className="type">Danh sách</span>
+              </Link>
               <div className="heading--item">
-                <span className="number">117</span>
-                <span className="type">Products</span>
+                <span className="number">{paginate?.count}</span>
+                <span className="type">Sản phẩm</span>
               </div>
             </div>
           </div>
@@ -41,15 +117,42 @@ export default function Category() {
             <div className="filter--top__group">
               <div className="filter--item">
                 <div className="field">
-                  <input type="radio" id="small" name="size" />
-                  <label htmlFor="small" className="radio">
-                    Filter text
+                  <input
+                    type="radio"
+                    id="increase"
+                    name="sort"
+                    checked={sort === "real_price.1"}
+                    value={"asc"}
+                    onChange={sortPrice.bind(null, { real_price: 1 })}
+                  />
+                  <label htmlFor="increase" className="radio">
+                    Tăng dần
                   </label>
                 </div>
                 <div className="field">
-                  <input type="radio" id="big" name="size" defaultChecked />
-                  <label htmlFor="big" className="radio">
-                    Filter text
+                  <input
+                    type="radio"
+                    id="decrease"
+                    name="sort"
+                    checked={sort === "real_price.-1"}
+                    value={"desc"}
+                    onChange={sortPrice.bind(null, { real_price: -1 })}
+                  />
+                  <label htmlFor="decrease" className="radio">
+                    Giảm dần
+                  </label>
+                </div>
+                <div className="field">
+                  <input
+                    type="radio"
+                    id="discount"
+                    name="sort"
+                    checked={sort === "discount_rate.-1"}
+                    value={"discount"}
+                    onChange={sortPrice.bind(null, { discount_rate: -1 })}
+                  />
+                  <label htmlFor="discount" className="radio">
+                    Khuyến mãi nhiều
                   </label>
                 </div>
               </div>
@@ -98,7 +201,7 @@ export default function Category() {
             <div className="filter--top__applied">
               <h3>Applied filters:</h3>
               <div className="selected--group">
-                <span className="selected--item">Selected Filter</span>
+                <FilterItem/>
                 <span className="selected--item">Selected Filter</span>
               </div>
             </div>
@@ -106,18 +209,19 @@ export default function Category() {
           <div className="category--main">
             <div className="row">
               <div className="col-md-3">
-                <FilterBar />
+                <FilterBar props={categories} />
               </div>
               <div className="col-md-9 products">
-                <Switch>
-                  <Route path={`${url}/grid-view`}>
-                    <GridView />
-                  </Route>
-                  <Route exact path={`${url}`}>
-                    <ListView />
-                  </Route>
-                </Switch>
-                <Paginate />
+                {products.length ? (
+                  view === "list" ? (
+                    <ListView props={products} />
+                  ) : (
+                    <GridView props={products} />
+                  )
+                ) : (
+                  <div>Không có sản phẩm bạn cần tìm</div>
+                )}
+                {paginate.count ? <Paginate props={paginate} /> : null}
               </div>
             </div>
           </div>
@@ -125,4 +229,6 @@ export default function Category() {
       </section>
     </>
   );
-}
+};
+
+export default connector(Category);

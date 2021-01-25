@@ -4,6 +4,9 @@
   margin-bottom: 32px;
   border: 1px solid #d1d1d1;
   border-radius: 12px;
+  padding: 12px;
+  overflow:hidden;
+  position: relative;
   .card--image {
     margin-right: 32px;
   }
@@ -13,6 +16,10 @@
       font-size: 18px;
       font-weight: 600;
       line-height: 27px;
+      a{
+        text-decoration: none;
+        color:#000;
+      }
     }
     .desc {
       font-weight: normal;
