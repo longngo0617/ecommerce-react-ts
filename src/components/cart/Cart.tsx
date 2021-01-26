@@ -47,16 +47,19 @@ const Cart = (props: Props) => {
                 <CartItem {...e} key={e.id} />
               ))}
               {cartList.length === 0 && (
-                <p
-                  style={{
-                    textAlign: "center",
-                    marginTop: 80,
-                    lineHeight: "25px",
-                  }}
-                >
-                  Bạn chưa chọn sản phẩm nào, tiếp tục chọn cho mình sản phẩm
-                  ưng ý và quay lại.
-                </p>
+                <div>
+                  <img src="/assets/empty-cart.svg" alt="" />
+                  <p
+                    style={{
+                      textAlign: "center",
+                      marginTop: 80,
+                      lineHeight: "25px",
+                    }}
+                  >
+                    Bạn chưa chọn sản phẩm nào, tiếp tục chọn cho mình sản phẩm
+                    ưng ý và quay lại.
+                  </p>
+                </div>
               )}
             </div>
             <div className="cart--foot">
@@ -68,7 +71,11 @@ const Cart = (props: Props) => {
                 <div className="btn--apply">
                   <span>Continue shopping</span>
                 </div>
-                <Link onClick={props.closeCart} to="/checkout" className="btn btn-buy">
+                <Link
+                  onClick={props.closeCart}
+                  to="/checkout"
+                  className="btn btn-buy"
+                >
                   <span>Go to Checkout</span>
                 </Link>
               </div>

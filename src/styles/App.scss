@@ -13,6 +13,7 @@
 @import "./pages/details.scss";
 @import "./pages/checkout.scss";
 @import "./pages/login.scss";
+@import "./pages/profile.scss";
 
 body,
 html {
@@ -27,6 +28,13 @@ img {
   max-width: 100%;
   object-fit: cover;
   vertical-align: middle;
+}
+.container--profile{
+  width: 1200px;
+  display: flex;
+  padding: 1.25rem 0 3.125rem;
+  margin-right: auto;
+  margin-left: auto;
 }
 .btn {
   width: 180px;
@@ -134,6 +142,7 @@ img {
     font-size: 14px;
     display: flex;
     align-items: center;
+    white-space: nowrap;
     &::before {
       content: "";
       width: 20px;

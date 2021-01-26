@@ -2,6 +2,7 @@ import LocalStorage from "../../helper/LocalStorage";
 import { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT_SUCCESS } from "./Login.constants";
 
 const initialState = {
+  userInfo: LocalStorage.get('userInfo'),
   loading: false,
   error: "",
 };

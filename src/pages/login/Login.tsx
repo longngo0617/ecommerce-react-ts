@@ -57,7 +57,7 @@ const Login = (props : Props) => {
     }
   }
 
-  if (!loading && userInfo) return <Redirect to="/category" />
+  if (!userInfo) return <Redirect to="/category" />
   
   return (
     <div className="login" onSubmit={_login}>

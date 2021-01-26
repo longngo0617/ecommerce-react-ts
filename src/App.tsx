@@ -10,12 +10,19 @@ import Checkout from "./pages/checkout/Checkout";
 import Cart from "./components/cart/Cart";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
+import Profile from "./pages/profile/Profile";
+import PrivateRouter from "./components/PrivateRouter";
 
 function App() {
   const routes = [
     { path: "/category/:id?", name: "Category", Component: Category },
-    { path: "/product-details/:slug", name: "ProductDetails", Component: Details },
+    {
+      path: "/product-details/:slug",
+      name: "ProductDetails",
+      Component: Details,
+    },
     { path: "/checkout", name: "Check Out", Component: Checkout },
+    { path: "/profile", name: "Profile", private: true, Component: Profile },
     { path: "/register", name: "Register", Component: Register },
     { path: "/login", name: "Login", Component: Login },
     { path: "/", name: "Home", Component: Home },
@@ -27,11 +34,12 @@ function App() {
         <Cart />
         <Header />
         <Switch>
-          {routes.map(({ path, Component }) => (
-            <Route key={path} path={path}>
-              <Component />
+          {routes.map((e: any) => {
+            return e.private ? <PrivateRouter key={e.path} path={e.path} component={e.Component} />
+            : <Route key={e.path} path={e.path}>
+              <e.Component />
             </Route>
-          ))}
+          })}
         </Switch>
         <Footer />
       </Router>

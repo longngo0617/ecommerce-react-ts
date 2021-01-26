@@ -31,7 +31,7 @@ const Details = (props: Props) => {
         links={[
           { title: "Homepage", link: "/" },
           { title: "Category", link: "/category" },
-          { title: "Carrots" },
+          { title: productDetails.name },
         ]}
       />
       <section className="product">

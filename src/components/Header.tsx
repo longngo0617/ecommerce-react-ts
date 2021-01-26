@@ -75,7 +75,7 @@ export default function Header() {
               </div>
             </div>
             <div className="info">
-              {login?.userInfo ? (
+              {login?.userInfo?.name ? (
                 <div className="stardust-popover">
                   <div className="stardust-popover__target" role="button">
                     <div className="account">
