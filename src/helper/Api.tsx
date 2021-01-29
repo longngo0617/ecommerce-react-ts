@@ -5,7 +5,7 @@ const domain = "https://cfd-reactjs.herokuapp.com/";
 let headers: any = {
   "Content-Type": "application/json",
 };
-let user: any = localStorage.getItem("user");
+let user: any = localStorage.getItem("token");
 let _refreshToken;
 if (user) {
   user = JSON.parse(user);
@@ -39,7 +39,7 @@ async function refreshToken() {
           user.accessToken = res.accessToken;
           // headers.Authorization = `Bear ${res.accessToken}`
 
-          LocalStorage.set("user", user);
+          LocalStorage.set("token", user);
           resendApi = true;
           return true;
         }

@@ -12,6 +12,8 @@ import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import Profile from "./pages/profile/Profile";
 import PrivateRouter from "./components/PrivateRouter";
+import PopupSuccess from "./pages/profile/components/PopupSuccess";
+import { useSelector } from "react-redux";
 
 function App() {
   const routes = [
@@ -27,11 +29,12 @@ function App() {
     { path: "/login", name: "Login", Component: Login },
     { path: "/", name: "Home", Component: Home },
   ];
-
+  const popup = useSelector((state:AppState) => state.update.popup)
   return (
     <>
       <Router>
         <Cart />
+        {popup && <PopupSuccess/>}
         <Header />
         <Switch>
           {routes.map((e: any) => {

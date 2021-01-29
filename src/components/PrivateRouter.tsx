@@ -5,7 +5,7 @@ import Login from '../pages/login/Login'
 
 export default function PrivateRouter(props: any) {
     const login = useSelector((state:AppState) => state.login)
-    if (login.userInfo) {
+    if (login?.userInfo?.name) {
         return <Route {...props} />
     }
     return <Login />

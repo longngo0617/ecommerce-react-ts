@@ -1,5 +1,5 @@
 import LocalStorage from "../../helper/LocalStorage";
-import { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT_SUCCESS } from "./Login.constants";
+import { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT_SUCCESS, UPDATE_USER_REQUEST } from "./Login.constants";
 
 const initialState = {
   userInfo: LocalStorage.get('userInfo'),
@@ -30,6 +30,10 @@ export const LoginReducer = (state = initialState, action: any) => {
       return {
         ...state,
         userInfo:null
+      }
+    case UPDATE_USER_REQUEST:
+      return {
+        ...state,
       }
     default:
       return state;

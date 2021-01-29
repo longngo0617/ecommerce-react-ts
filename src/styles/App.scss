@@ -29,7 +29,7 @@ img {
   object-fit: cover;
   vertical-align: middle;
 }
-.container--profile{
+.container--profile {
   width: 1200px;
   display: flex;
   padding: 1.25rem 0 3.125rem;
@@ -46,7 +46,7 @@ img {
   &--more {
     background: #f5f5f5;
     text-decoration: none;
-    color:#000;
+    color: #000;
   }
   &--recipes {
     border: 2px solid #6a983c;
@@ -260,4 +260,43 @@ img {
   &:focus {
     outline: none;
   }
+}
+
+.popup-overlay {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.popup-container {
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  overflow:visible;
+  max-width: 100%;
+  max-height: 100%;
+}
+.icon-popup{
+  width: 440px;
+  display:flex;
+  align-items: center;
+  font-size: 1rem;
+  padding:30px;
+  border-radius: 3px;
+  box-shadow: 0 2px 4px rgba(0,0,0,.5);
+  background-color: #fff;
+  flex-direction: column;
+}
+.fresh-popup {
+  position: fixed;
+  pointer-events: none;
+  user-select: none;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 600;
+}
+.success-popup__icon{
+  margin-bottom: 10px;
 }
