@@ -88,7 +88,7 @@ export default function Header() {
                       <div className="stardust-popover__arrow--inner"></div>
                     </div>
                     <div className="account__content">
-                        <Link to="/profile" className="account__button">My account</Link>
+                        <Link to="/user/account/profile" className="account__button">My account</Link>
                         <Link to="/profile"className="account__button">Purchase menu</Link>
                         <div className="account__button" onClick={()=>_logout(dispatch,history)}>Log out</div>
                     </div>

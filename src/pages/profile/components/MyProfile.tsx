@@ -1,38 +1,37 @@
-import { CircularProgress } from "@material-ui/core";
-import React, { useState } from "react";
-import { connect, ConnectedProps, useDispatch, useSelector } from "react-redux";
+import React, { useRef, useState } from "react";
+import { connect, ConnectedProps } from "react-redux";
 import useForm from "../../../hooks/useForm";
 import { updateProfile } from "../Profile.thunk";
-import { dismissPopup } from "../Profile.actions";
-import PopupSuccess from "./PopupSuccess";
 const mapStateToProps = (state: AppState) => ({
-  loading:state.update.loading,
-  success:state.update.success,
-  err:state.update.error,
+  loading: state.update.loading,
+  success: state.update.success,
+  err: state.update.error,
   user: state.login.userInfo,
-  popup: state.update.popup,
 });
 
 const mapDispatchToProps = {
   updateProfile,
-  dismissPopup
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 interface Props extends ConnectedProps<typeof connector> {}
-const  MyProfile = (props : Props) => {
-  const {loading,popup,err,user,updateProfile,dismissPopup} = props;
+const MyProfile = (props: Props) => {
+  const { loading, err, user, updateProfile } = props;
   const [openDay, setOpenDay] = useState("");
   const [openMonth, setOpenMonth] = useState("");
   const [openYear, setOpenYear] = useState("");
-  const dispatch = useDispatch();
+  const inputFile : any = useRef(null) ;
   let { birthday } = user;
   if (birthday) {
     birthday = new Date(birthday);
   }
   const [day, setDay] = useState((birthday && birthday.getDate()) || "Day");
-  const [month, setMonth] = useState((birthday && birthday.getMonth() + 1) || "Month");
-  const [year, setYear] = useState((birthday && birthday.getFullYear()) || "Year");
+  const [month, setMonth] = useState(
+    (birthday && birthday.getMonth() + 1) || "Month"
+  );
+  const [year, setYear] = useState(
+    (birthday && birthday.getFullYear()) || "Year"
+  );
   let { data, errors, inputChange, Submit } = useForm(
     {
       ...user,
@@ -50,15 +49,15 @@ const  MyProfile = (props : Props) => {
       },
     }
   );
-  function protectEmail(user_email : string) {
+  function protectEmail(user_email: string) {
     var avg, splitted, part1, part2;
     splitted = user_email.split("@");
     part1 = splitted[0];
     avg = part1.length / 2;
-    part1 = part1.substring(0, (part1.length - avg));
+    part1 = part1.substring(0, part1.length - avg);
     part2 = splitted[1];
     return part1 + "***@" + part2;
-};
+  }
   function toggleOpenDay() {
     let css = openDay === "" ? "show" : "";
     setOpenDay(css);
@@ -84,7 +83,7 @@ const  MyProfile = (props : Props) => {
       let { name, gender } = data;
       let birthday: any = null;
       birthday = new Date(year, month, day).getTime();
-      updateProfile({ name, gender, birthday })
+      updateProfile({ name, gender, birthday });
     }
   }
 
@@ -142,7 +141,9 @@ const  MyProfile = (props : Props) => {
                   </div>
                   <div className="input-with-label__content">
                     <div className="my-account__inline-container">
-                      <div className="my-account__input-text">{protectEmail(data.email)}</div>
+                      <div className="my-account__input-text">
+                        {protectEmail(data.email)}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -331,10 +332,24 @@ const  MyProfile = (props : Props) => {
               </div>
             </form>
           </div>
-          <div className="my-account-profile__right"></div>
+          <div className="my-account-profile__right">
+            <div className="avatar-uploader">
+              <div className="avatar-uploader__avatar">
+                  <div className="avatar-uploader__avatar-image" style={{backgroundImage: `url("https://cf.shopee.vn/file/0bfc106a04dfe716761500175034ae05_tn")`}}></div>
+              </div>
+              <input ref={inputFile} className="avatar-uploader__file-input" name="avatar" type="file" accept=".jpg,.jpeg,.png" onChange={(e:any) => console.log(e.target.files[0])}/>
+              <button type="button" className="btn btn-light" onClick={() => inputFile.current.click()}>
+                <span>choose an image</span>
+              </button>
+              <div className="avatar-uploader__text-container">
+                <div className="avatar-uploader__text">Maximum file size 1 MB</div>
+                <div className="avatar-uploader__text">Format: .JPEG, .PNG</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
-}
-export default connector(MyProfile)
+};
+export default connector(MyProfile);

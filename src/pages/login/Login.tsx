@@ -19,6 +19,7 @@ const mapStateToProps = (state: AppState) => ({
   loading: state.login.loading,
   error : state.login.error,
   userInfo:state.login.userInfo,
+  loginSuccess:state.login.loginSuccess,
 });
 
 const mapDispatchToProps = {
@@ -57,7 +58,7 @@ const Login = (props : Props) => {
     }
   }
 
-  if (!userInfo) return <Redirect to="/category" />
+  if (userInfo?.name) return <Redirect to="/category" />
   
   return (
     <div className="login" onSubmit={_login}>

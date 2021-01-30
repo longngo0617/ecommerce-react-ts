@@ -12,7 +12,7 @@ export const updateProfile = (payload: any) => async (dispatch: any) => {
       dispatch(loginSuccess(data.data));
       setTimeout(() => {
         dispatch(actions.dismissPopup());
-      }, 5000);
+      }, 3000);
     } catch {
       dispatch(actions.updateFailure("Update fail!"));
     }

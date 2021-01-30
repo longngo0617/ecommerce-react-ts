@@ -31,10 +31,6 @@ export const LoginReducer = (state = initialState, action: any) => {
         ...state,
         userInfo:null
       }
-    case UPDATE_USER_REQUEST:
-      return {
-        ...state,
-      }
     default:
       return state;
   }

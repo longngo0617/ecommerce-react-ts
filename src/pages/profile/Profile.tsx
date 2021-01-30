@@ -3,6 +3,7 @@ import { Route, Switch, useRouteMatch } from 'react-router-dom'
 import Aside from './components/Aside'
 import Notification from './components/Notification'
 import Order from './components/Order'
+import Password from './components/Password'
 import MyProfile from './components/MyProfile'
 
 export default function Profile() {
@@ -15,9 +16,9 @@ export default function Profile() {
                     <Aside />
                     <div className="content-main">
                         <Switch>
-                            <Route path={`${url}`} exact component={MyProfile} />
-                            {/* <Route path={`${url}/thong-bao`} exact component={Notification} />
-                            <Route path={`${url}/don-hang`} exact component={Order} /> */}
+                            <Route path={`${url}/profile`} exact component={MyProfile} />
+                            <Route path={`${url}/password`} exact component={Password} />
+                            {/* {/* <Route path={`${url}/thong-bao`} exact component={Notification} /> */}
                         </Switch>
                     </div>
                 </div>

@@ -18,13 +18,9 @@ import { useSelector } from "react-redux";
 function App() {
   const routes = [
     { path: "/category/:id?", name: "Category", Component: Category },
-    {
-      path: "/product-details/:slug",
-      name: "ProductDetails",
-      Component: Details,
-    },
+    { path: "/product-details/:slug", name: "ProductDetails",Component: Details,},
     { path: "/checkout", name: "Check Out", Component: Checkout },
-    { path: "/profile", name: "Profile", private: true, Component: Profile },
+    { path: "/user/account", name: "Profile", private: true, Component: Profile },
     { path: "/register", name: "Register", Component: Register },
     { path: "/login", name: "Login", Component: Login },
     { path: "/", name: "Home", Component: Home },
